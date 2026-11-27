@@ -12,7 +12,11 @@ const CONFIG = {
     facebook: "https://www.facebook.com/shafikhanzz72",
     instagram: "https://www.instagram.com/_.shafiiii._/",
     whatsapp: "https://wa.me/8801797971474",
-    cv: "assets/cv/Md. Nazibur Rahman.pdf"
+    cv: "assets/cv/Md. Nazibur Rahman.pdf",
+    "insightiq-code": "https://github.com/nazibur74/InsightIQ",
+    "haat-code": "https://github.com/nazibur74/Bangla-Haat-Bazar",
+    "icecream-code": "https://github.com/nazibur74/Shafi-s-Ice-Cream-Shop",
+    "haat-video": "https://www.youtube.com/watch?v=AuRmpwA_nSM"
   }
 };
 
@@ -213,4 +217,31 @@ if (form) form.addEventListener("submit", event => {
     requestAnimationFrame(step);
   }
   requestAnimationFrame(step);
+})();
+/* Bangla Haat Bazar demo video: shows the YouTube thumbnail with a play
+   button; the player itself loads only when it is clicked. */
+(function () {
+  const box = document.getElementById("haat-art");
+  const url = ((CONFIG.links && CONFIG.links["haat-video"]) || "").trim();
+  if (!box || !url) return;
+  const m = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/|live\/))([\w-]{11})/);
+  if (!m) return;
+  const id = m[1];
+  const poster = box.querySelector(".haat-poster");
+  const play = box.querySelector(".video-play");
+  const caption = box.querySelector(".haat-caption");
+  poster.style.backgroundImage = `url("https://i.ytimg.com/vi/${id}/hqdefault.jpg")`;
+  box.classList.add("has-video");
+  play.hidden = false;
+  if (caption) caption.textContent = "WATCH THE DEMO";
+  play.addEventListener("click", () => {
+    const frame = document.createElement("iframe");
+    frame.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`;
+    frame.title = "Bangla Haat Bazar demo video";
+    frame.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen";
+    frame.allowFullscreen = true;
+    frame.referrerPolicy = "strict-origin-when-cross-origin";
+    box.appendChild(frame);
+    box.classList.add("playing");
+  });
 })();
